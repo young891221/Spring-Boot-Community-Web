@@ -9,11 +9,9 @@
 
     <div class="row-fluid">
         <div class="span12" style="border-bottom:#dadada solid 1px; height:50px; padding:9px 15px 0 15px;">
-            <a href="/boardList"><img class="img-rounded" src="/resources/images/google_logo.png" style="height:100%;" /></a>
+            <a href="/board/list"><img th:src="@{/images/spring_boot.png}" class="img-rounded" style="height:100%;" /></a>
             <div class="pull-right">
-                <form method="POST" action="/signout">
-                    <button class="btn btn-info pull-right">Log Out</button>
-                </form>
+                <a href="/signout" class="btn btn-info pull-right">로그아웃</a>
             </div>
         </div>
     </div>
@@ -61,8 +59,10 @@
 
             <br style="clear: both" />
             <p class="pull-right">
-                <a href="/board/list" class="btn" type="button">모든 글 보기</a>
-                <button type="button" class="btn btn-inverse" onClick="boardInsert()">저장</button>
+                <a href="/board/list" class="btn" type="button">이전으로</a>
+                <button type="button" class="btn btn-success" onClick="board('insert')">저장</button>
+                <button type="button" class="btn btn-primary" onClick="board('update')">수정</button>
+                <button type="button" class="btn btn-inverse" onClick="board('delete')">삭제</button>
             </p>
         </div>
     </div>
