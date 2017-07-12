@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+
+    <div class="row-fluid">
+        <div class="span12" style="border-bottom:#dadada solid 1px; height:50px; padding:9px 15px 0 15px;">
+            <a href="/boardList"><img class="img-rounded" src="/resources/images/google_logo.png" style="height:100%;" /></a>
+            <div class="pull-right">
+                <form method="POST" action="/signout">
+                    <button class="btn btn-info pull-right">Log Out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span8 offset2">
+            <br/>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <div class="pull-right">
+                        <select id="board_type" >
+                            <option value="">--분류--</option>
+                            <option value="notice">공지</option>
+                            <option value="free">자유</option>
+                        </select>
+                    </div>
+                </tr>
+                </thead>
+            </table>
+
+            <table class="table table-striped">
+                <tr>
+                    <th class="active">Title</th>
+                    <td><input type="text" class="span11 form-control"
+                               placeholder="Text input" id="board_title" name="board_title"/></td>
+                </tr>
+
+                <tr>
+                    <th class="active">Suboard_title</th>
+                    <td><input type="text" class="span11 form-control"
+                               placeholder="Text input" id="board_sub_title" name="board_sub_title"/></td>
+                </tr>
+
+                <tr>
+                    <th class="active">Content</th>
+                    <td><textarea id="board_content" name="board_content"
+                                  class="span11 form-control input-sm ckeditor"
+                                  placeholder="Message" maxlength="140" rows="7"
+                                  style="height: 200px;"></textarea>
+                        <span class="help-block"></span>
+                    </td>
+                </tr>
+            </table>
+
+            <br style="clear: both" />
+            <p class="pull-right">
+                <a href="/board/list" class="btn" type="button">모든 글 보기</a>
+                <button type="button" class="btn btn-inverse" onClick="boardInsert()">저장</button>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
