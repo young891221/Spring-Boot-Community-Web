@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Board Form</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+
+    <div class="row-fluid">
+        <div class="span12" style="border-bottom:#dadada solid 1px; height:50px; padding:9px 15px 0 15px;">
+            <a href="/boardList"><img class="img-rounded" src="/resources/images/google_logo.png" style="height:100%;" /></a>
+            <div class="pull-right">
+                <form method="POST" action="/signout">
+                    <button class="btn btn-info pull-right">Log Out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <br/><br/><br/>
+            <div id="mainHide">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>서비스 분류</th>
+                        <th>제목</th>
+                        <th>작성 날짜</th>
+                        <th>수정 날짜</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="board : ${boardList}">
+                            <td>${board.idx}</td>
+                            <td>${board.boardType}</td>
+                            <td><a href="/board?idx=${board.idx}">[공지]${board.board_title}</a></td>
+                            <td>${board.createdDate}</td>
+                            <td>${board.updatedDate} ? ${board.updatedDate} :</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <!--<div class="pagination pagination-centered">
+                    <ul class="pagination">
+                        <li><a href="/boardList?page=1">&laquo;</a></li>
+                        <#if (pagingVO.startPage > pagingVO.pageBlock)>
+                            <li><a href="/boardList?page=${pagingVO.startPage - pagingVO.pageBlock}">&lsaquo;</a></li>
+                            <#else>
+                                <li><a href="#">&lsaquo;</a></li>
+                        </#if>
+                        <#assign x=pagingVO.endPage>
+                            <#list pagingVO.startPage..x as i>
+                                <#if (pagingVO.currentPage = i)>
+                                    <li class="active">
+                                        <a href="/boardList?page=${i}">${i}
+                                            <span class="sr-only"></span>
+                                        </a>
+                                    </li>
+                                    <#else>
+                                        <li>
+                                            <a href="/boardList?page=${i}">${i}
+                                                <span class="sr-only"></span>
+                                            </a>
+                                        </li>
+                                </#if>
+                            </#list>
+                            <#if (pagingVO.endPage < pagingVO.pageCount)>
+                            <li><a href="/boardList?page=${pagingVO.startPage + pagingVO.pageBlock}">&rsaquo;</a></li>
+                            <#else>
+                                <li><a href="#">&rsaquo;</a></li>
+                                </#if>
+                                <li><a href="/boardList?page=${pagingVO.pageCount}">&raquo;</a></li>
+                    </ul>
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
