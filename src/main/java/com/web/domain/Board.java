@@ -3,6 +3,7 @@ package com.web.domain;
 import com.web.domain.enums.BoardType;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,15 +46,23 @@ public class Board implements Serializable {
     @Enumerated(EnumType.STRING)
     private BoardType boardType;
 
+    @Column
+    private LocalDateTime createdDate;
+
+    @Column
+    private LocalDateTime updatedDate;
+
     @OneToOne(fetch= FetchType.LAZY)
     private User user;
 
     @Builder
-    public Board(String title, String subTitle, String content, BoardType boardType, User user) {
+    public Board(String title, String subTitle, String content, BoardType boardType, LocalDateTime createdDate, LocalDateTime updatedDate, User user) {
         this.title = title;
         this.subTitle = subTitle;
         this.content = content;
         this.boardType = boardType;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
         this.user = user;
     }
 }
