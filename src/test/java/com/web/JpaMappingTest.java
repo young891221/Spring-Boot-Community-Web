@@ -48,6 +48,8 @@ public class JpaMappingTest {
                 .subTitle("서브 타이틀")
                 .content("컨텐츠")
                 .boardType(BoardType.free)
+                .createdDate(LocalDateTime.now())
+                .updatedDate(LocalDateTime.now())
                 .user(user).build());
     }
 
