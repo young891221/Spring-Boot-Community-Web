@@ -7,9 +7,13 @@ public enum BoardType {
     notice("공지사항"),
     free("자유게시판");
 
-    private String name;
+    private String value;
 
-    BoardType(String name) {
-        this.name = name;
+    BoardType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return this.value;
     }
 }

@@ -9,7 +9,7 @@
 
     <div class="row-fluid">
         <div class="span12" style="border-bottom:#dadada solid 1px; height:50px; padding:9px 15px 0 15px;">
-            <a href="/board/list"><img th:src="@{/images/spring_boot.png}" class="img-rounded" style="height:100%;" /></a>
+            <a href="/board/list"><img th:src="@{/images/spring_boot.png}" class="img-rounded" style="height:100%;"/></a>
             <div class="pull-right">
                 <a href="/signout" class="btn btn-info pull-right">로그아웃</a>
             </div>
@@ -23,7 +23,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>No</th>
+                        <th>인덱스</th>
                         <th>서비스 분류</th>
                         <th>제목</th>
                         <th>작성 날짜</th>
@@ -32,11 +32,11 @@
                     </thead>
                     <tbody>
                         <tr th:each="board : ${boardList}">
-                            <td>${board.idx}</td>
-                            <td>${board.boardType}</td>
-                            <td><a href="/board?idx=${board.idx}">[공지]${board.board_title}</a></td>
-                            <td>${board.createdDate}</td>
-                            <td>${board.updatedDate} ? ${board.updatedDate} :</td>
+                            <td th:text="${board.idx}"></td>
+                            <td th:text="${board.boardType.value}"></td>
+                            <td><a href="/board?idx=${board.idx}" th:text="${board.title}"></a></td>
+                            <td th:text="${board.createdDate}"></td>
+                            <td th:text="${board.updatedDate}"></td>
                         </tr>
                     </tbody>
                 </table>
