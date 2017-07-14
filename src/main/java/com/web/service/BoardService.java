@@ -24,4 +24,12 @@ public class BoardService {
         Page<Board> boardPage = boardRepository.findAll(pageable);
         return new PageImpl<>(boardPage.getContent(), pageable, boardPage.getTotalElements());
     }
+
+    public Board findBoardByIdx(Long idx) {
+        return boardRepository.findOne(idx);
+    }
+
+    public Board saveAndUpdateBoard(Board board) {
+        return boardRepository.save(board);
+    }
 }

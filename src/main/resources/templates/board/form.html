@@ -23,10 +23,10 @@
                 <thead>
                 <tr>
                     <div class="pull-right">
-                        <select id="board_type" >
-                            <option value="">--분류--</option>
-                            <option value="notice">공지</option>
-                            <option value="free">자유</option>
+                        <select id="board_type">
+                            <option>--분류--</option>
+                            <option th:value="notice" th:selected="${board.boardType}">공지사항</option>
+                            <option th:value="free" th:selected="${board.boardType}">자유게시판</option>
                         </select>
                     </div>
                 </tr>
@@ -36,23 +36,18 @@
             <table class="table table-striped">
                 <tr>
                     <th class="active">Title</th>
-                    <td><input type="text" class="span11 form-control"
-                               placeholder="Text input" id="board_title" name="board_title"/></td>
+                    <td><input id="board_title" type="text" class="span11 form-control" th:value="${board.title}"/></td>
                 </tr>
 
                 <tr>
                     <th class="active">Suboard_title</th>
-                    <td><input type="text" class="span11 form-control"
-                               placeholder="Text input" id="board_sub_title" name="board_sub_title"/></td>
+                    <td><input id="board_sub_title" type="text" class="span11 form-control" th:value="${board.subTitle}"/></td>
                 </tr>
 
                 <tr>
                     <th class="active">Content</th>
-                    <td><textarea id="board_content" name="board_content"
-                                  class="span11 form-control input-sm ckeditor"
-                                  placeholder="Message" maxlength="140" rows="7"
-                                  style="height: 200px;"></textarea>
-                        <span class="help-block"></span>
+                    <td><textarea id="board_content" class="span11 form-control input-sm ckeditor" maxlength="140" rows="7" style="height: 200px;"
+                    th:text="${board.content}"></textarea><span class="help-block"></span>
                     </td>
                 </tr>
             </table>

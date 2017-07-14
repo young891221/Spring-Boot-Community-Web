@@ -29,10 +29,11 @@ import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 public class JpaMappingTest {
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
-    private BoardRepository boardRepository;
+    BoardRepository boardRepository;
+
 
     @Before
     public void init() {

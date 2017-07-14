@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -20,8 +21,9 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-    @GetMapping("")
-    public String board() {
+    @GetMapping("/{idx}")
+    public String board(@PathVariable Long idx, Model model) {
+        model.addAttribute("board", boardService.findBoardByIdx(idx));
         return "/board/form";
     }
 
