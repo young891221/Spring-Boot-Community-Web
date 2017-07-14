@@ -5,6 +5,7 @@ import com.web.repository.BoardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class BoardService {
     BoardRepository boardRepository;
 
     public Page<Board> findBoardList(Pageable pageable) {
-        pageable = new PageRequest(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), pageable.getSort());
-        return boardRepository.findAll(pageable);
+        pageable = new PageRequest(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        Page<Board> boardPage = boardRepository.findAll(pageable);
+        return new PageImpl<>(boardPage.getContent(), pageable, boardPage.getTotalElements());
     }
 }
