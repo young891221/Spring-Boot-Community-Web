@@ -21,11 +21,11 @@ repositories {
 	mavenCentral()
 }
 
-ext['hibernate.version'] = '5.2.8.Final'
+ext['hibernate.version'] = '5.2.8.Final' //LocalDateTime 사용을 위해
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.thymeleaf.extras:thymeleaf-extras-java8time')
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	compile('com.h2database:h2') //console사용을 위해
 

@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 @SpringBootApplication
 public class BootWebApplication {
@@ -31,7 +31,7 @@ public class BootWebApplication {
 					.createdDate(LocalDateTime.now())
 					.build());
 
-			Stream.of(1,2,3).forEach(index ->
+			IntStream.rangeClosed(1, 200).forEach(index ->
 				boardRepository.save(Board.builder()
 						.title("게시글"+index)
 						.subTitle("순서"+index)

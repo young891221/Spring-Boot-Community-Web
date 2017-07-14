@@ -18,7 +18,7 @@
 
     <div class="row-fluid">
         <div class="span10 offset1">
-            <br/><br/><br/>
+            <br/>
             <div id="mainHide">
                 <table class="table table-striped">
                     <thead>
@@ -35,45 +35,28 @@
                             <td th:text="${board.idx}"></td>
                             <td th:text="${board.boardType.value}"></td>
                             <td><a href="/board?idx=${board.idx}" th:text="${board.title}"></a></td>
-                            <td th:text="${board.createdDate}"></td>
-                            <td th:text="${board.updatedDate}"></td>
+                            <td th:text="${#temporals.format(board.createdDate,'yyyy-dd-MM HH:mm')}"></td>
+                            <td th:text="${#temporals.format(board.updatedDate,'yyyy-dd-MM HH:mm')}"></td>
                         </tr>
                     </tbody>
                 </table>
 
                 <!-- Pagination -->
-                <!--<div class="pagination pagination-centered">
-                    <ul class="pagination">
-                        <li><a href="/boardList?page=1">&laquo;</a></li>
-                        <#if (pagingVO.startPage > pagingVO.pageBlock)>
-                            <li><a href="/boardList?page=${pagingVO.startPage - pagingVO.pageBlock}">&lsaquo;</a></li>
-                            <#else>
-                                <li><a href="#">&lsaquo;</a></li>
-                        </#if>
-                        <#assign x=pagingVO.endPage>
-                            <#list pagingVO.startPage..x as i>
-                                <#if (pagingVO.currentPage = i)>
-                                    <li class="active">
-                                        <a href="/boardList?page=${i}">${i}
-                                            <span class="sr-only"></span>
-                                        </a>
-                                    </li>
-                                    <#else>
-                                        <li>
-                                            <a href="/boardList?page=${i}">${i}
-                                                <span class="sr-only"></span>
-                                            </a>
-                                        </li>
-                                </#if>
-                            </#list>
-                            <#if (pagingVO.endPage < pagingVO.pageCount)>
-                            <li><a href="/boardList?page=${pagingVO.startPage + pagingVO.pageBlock}">&rsaquo;</a></li>
-                            <#else>
-                                <li><a href="#">&rsaquo;</a></li>
-                                </#if>
-                                <li><a href="/boardList?page=${pagingVO.pageCount}">&raquo;</a></li>
+                <div class="pagination pagination-centered">
+                    <ul class="pagination" th:with="startNumber=${T(Math).floor(boardList.number/10)}*10+1, endNumber=(${boardList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardList.totalPages}">
+                        <li><a href="/board/list?page=1">&laquo;</a></li>
+                        <li th:style="${boardList.first} ? 'display:none'">
+                            <a th:href="@{/board/list(page=${boardList.number})}">&lsaquo;</a>
+                        </li>
+                        <li th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:class="(${page} == ${boardList.number}+1) ? 'active'">
+                            <a th:href="@{/board/list(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+                        </li>
+                        <li th:style="${boardList.last} ? 'display:none'">
+                            <a th:href="@{/board/list(page=${boardList.number}+2)}">&rsaquo;</a>
+                        </li>
+                         <li><a th:href="@{/board/list(page=${boardList.totalPages})}">&raquo;</a></li>
                     </ul>
-                </div>-->
+                </div>
             </div>
 
         </div>
