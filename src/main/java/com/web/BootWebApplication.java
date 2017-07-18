@@ -21,6 +21,13 @@ public class BootWebApplication {
 		SpringApplication.run(BootWebApplication.class, args);
 	}
 
+	/**
+	 * SpringApplication이 시작될 때 특정 코드를 실행시키고 싶을때 구현할 수 있는 인터페이스이다. 저장기능을 만들기전 임시로 데이터를 DB에 넣기 위해 작성하였다.
+	 * @param userRepository
+	 * @param boardRepository
+	 * @return
+	 * @throws Exception
+	 */
 	@Bean
 	public CommandLineRunner runner(UserRepository userRepository, BoardRepository boardRepository) throws Exception {
 		return (args) -> {
