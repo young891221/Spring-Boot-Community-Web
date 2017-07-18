@@ -33,6 +33,7 @@
                 </thead>
             </table>
 
+            <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
             <table class="table table-striped">
                 <tr>
                     <th class="active">Title</th>
@@ -55,12 +56,38 @@
             <br style="clear: both" />
             <p class="pull-right">
                 <a href="/board/list" class="btn" type="button">이전으로</a>
-                <button type="button" class="btn btn-info" onClick="board('insert')">저장</button>
-                <button type="button" class="btn btn-success" onClick="board('update')">수정</button>
-                <button type="button" class="btn btn-danger" onClick="board('delete')">삭제</button>
+                <button type="button" class="btn btn-info" id="insert">저장</button>
+                <button type="button" class="btn btn-success" id="update">수정</button>
+                <button type="button" class="btn btn-danger" id="delete">삭제</button>
             </p>
         </div>
     </div>
 
+<script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    $('#postBtn').click(function () {
+        var jsonData = JSON.stringify({
+            idx: "",
+            title: "",
+            subTitle: ""
+        });
+        $.ajax({
+                   url: "/api/comment/post",
+                   type: "POST",
+                   data: jsonData,
+                   headers: {
+                       "Accept": "application/json",
+                       "Content-Type": "application/json"
+                   },
+                   dataType: "json",
+                   success: function (data) {
+
+                   },
+                   error: function () {
+
+                   }
+               });
+    });
+</script>
 </body>
 </html>
