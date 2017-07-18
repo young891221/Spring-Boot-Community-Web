@@ -21,7 +21,7 @@ repositories {
 	mavenCentral()
 }
 
-ext['hibernate.version'] = '5.2.8.Final' //LocalDateTime 사용을 위해
+ext['hibernate.version'] = '5.2.10.Final' //LocalDateTime 사용을 위해
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
