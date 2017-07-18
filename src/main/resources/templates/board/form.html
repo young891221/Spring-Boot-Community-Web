@@ -25,8 +25,8 @@
                     <div class="pull-right">
                         <select id="board_type">
                             <option>--분류--</option>
-                            <option th:value="notice" th:selected="${board.boardType}">공지사항</option>
-                            <option th:value="free" th:selected="${board.boardType}">자유게시판</option>
+                            <option th:value="notice" th:selected="${board?.boardType}">공지사항</option>
+                            <option th:value="free" th:selected="${board?.boardType}">자유게시판</option>
                         </select>
                     </div>
                 </tr>
@@ -36,18 +36,18 @@
             <table class="table table-striped">
                 <tr>
                     <th class="active">Title</th>
-                    <td><input id="board_title" type="text" class="span11 form-control" th:value="${board.title}"/></td>
+                    <td><input id="board_title" type="text" class="span11 form-control" th:value="${board?.title}"/></td>
                 </tr>
 
                 <tr>
                     <th class="active">Suboard_title</th>
-                    <td><input id="board_sub_title" type="text" class="span11 form-control" th:value="${board.subTitle}"/></td>
+                    <td><input id="board_sub_title" type="text" class="span11 form-control" th:value="${board?.subTitle}"/></td>
                 </tr>
 
                 <tr>
                     <th class="active">Content</th>
                     <td><textarea id="board_content" class="span11 form-control input-sm ckeditor" maxlength="140" rows="7" style="height: 200px;"
-                    th:text="${board.content}"></textarea><span class="help-block"></span>
+                    th:text="${board?.content}"></textarea><span class="help-block"></span>
                     </td>
                 </tr>
             </table>

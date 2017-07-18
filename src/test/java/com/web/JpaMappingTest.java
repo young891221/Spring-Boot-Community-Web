@@ -7,7 +7,6 @@ import com.web.repository.BoardRepository;
 import com.web.repository.UserRepository;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,12 @@ import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 /**
  * Created by KimYJ on 2017-07-12.
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@FixMethodOrder(NAME_ASCENDING)
 public class JpaMappingTest {
 
     @Autowired
