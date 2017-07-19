@@ -24,6 +24,8 @@ import static org.hamcrest.core.Is.is;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class JpaMappingTest {
+    private final String boardTestTitle = "테스트";
+    private final String email = "test@gmail.com";
 
     @Autowired
     UserRepository userRepository;
@@ -37,12 +39,12 @@ public class JpaMappingTest {
         User user = userRepository.save(User.builder()
                 .name("havi")
                 .password("test")
-                .email("test@gmail.com")
+                .email(email)
                 .createdDate(LocalDateTime.now())
                 .build());
 
         boardRepository.save(Board.builder()
-                .title("테스트")
+                .title(boardTestTitle)
                 .subTitle("서브 타이틀")
                 .content("컨텐츠")
                 .boardType(BoardType.free)
@@ -53,13 +55,13 @@ public class JpaMappingTest {
 
     @Test
     public void 제대로_생성_됐는지_테스트() {
-        User user = userRepository.findOne(Long.valueOf(1));
+        User user = userRepository.findByEmail(email);
         assertThat(user.getName(), is("havi"));
         assertThat(user.getPassword(), is("test"));
-        assertThat(user.getEmail(), is("test@gmail.com"));
+        assertThat(user.getEmail(), is(email));
 
-        Board board = boardRepository.findOne(Long.valueOf(1));
-        assertThat(board.getTitle(), is("테스트"));
+        Board board = boardRepository.findByTitle(boardTestTitle);
+        assertThat(board.getTitle(), is(boardTestTitle));
         assertThat(board.getSubTitle(), is("서브 타이틀"));
         assertThat(board.getContent(), is("컨텐츠"));
         assertThat(board.getBoardType(), is(BoardType.free));
