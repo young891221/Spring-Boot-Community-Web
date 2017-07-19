@@ -1,0 +1,26 @@
+¦§¦¡.gradle
+¦§¦¡.idea
+¦§¦¡build
+¦§¦¡gradle
+¦¦¦¡src
+    ¦§¦¡main
+    ¦¢  ¦§¦¡java
+    ¦¢  ¦¢  ¦¦¦¡com
+    ¦¢  ¦¢      ¦¦¦¡web
+    ¦¢  ¦¢          ¦§¦¡config
+    ¦¢  ¦¢          ¦§¦¡controller
+    ¦¢  ¦¢          ¦§¦¡domain
+    ¦¢  ¦¢          ¦¢  ¦¦¦¡enums
+    ¦¢  ¦¢          ¦§¦¡repository
+    ¦¢  ¦¢          ¦¦¦¡service
+    ¦¢  ¦¦¦¡resources
+    ¦¢      ¦§¦¡static
+    ¦¢      ¦¢  ¦§¦¡css
+    ¦¢      ¦¢  ¦§¦¡images
+    ¦¢      ¦¢  ¦¦¦¡js
+    ¦¢      ¦¦¦¡templates
+    ¦¢          ¦¦¦¡board
+    ¦¦¦¡test
+        ¦¦¦¡java
+            ¦¦¦¡com
+                ¦¦¦¡web

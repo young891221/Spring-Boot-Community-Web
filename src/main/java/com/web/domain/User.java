@@ -37,20 +37,16 @@ public class User implements Serializable {
     private String email;
 
     @Column
-    private String image;
-
-    @Column
     private LocalDateTime createdDate;
 
     @Column
     private LocalDateTime updatedDate;
 
     @Builder
-    public User(String name, String password, String email, String image, LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public User(String name, String password, String email, LocalDateTime createdDate, LocalDateTime updatedDate) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.image = image;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
