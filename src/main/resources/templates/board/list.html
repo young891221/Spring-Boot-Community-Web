@@ -35,8 +35,8 @@
                             <td th:text="${board.idx}"></td>
                             <td th:text="${board.boardType.value}"></td>
                             <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
-                            <td th:text="${#temporals.format(board.createdDate,'yyyy-dd-MM HH:mm')}"></td>
-                            <td th:text="${#temporals.format(board.updatedDate,'yyyy-dd-MM HH:mm')}"></td>
+                            <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
                         </tr>
                     </tbody>
                 </table>
