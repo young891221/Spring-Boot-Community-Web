@@ -60,7 +60,7 @@ public class JpaMappingTest {
         assertThat(user.getPassword(), is("test"));
         assertThat(user.getEmail(), is(email));
 
-        Board board = boardRepository.findByTitle(boardTestTitle); //init()에서 저장된 board의 테스트용 제목을 사용하여 검색
+        Board board = boardRepository.findByUser(user); //init()에서 저장된 board의 작성자인 user를 사용하여 검색
         assertThat(board.getTitle(), is(boardTestTitle));
         assertThat(board.getSubTitle(), is("서브 타이틀"));
         assertThat(board.getContent(), is("컨텐츠"));
