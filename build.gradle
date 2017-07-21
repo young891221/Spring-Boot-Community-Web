@@ -1,4 +1,4 @@
-buildscript { //빌드 스크립트 내부에 부트 플러그인 사용에 필요한 버전, 의존 라이브러리 및 저장소를 설정
+buildscript {
 	ext {
 		springBootVersion = '1.5.4.RELEASE'
 	}
@@ -9,7 +9,7 @@ buildscript { //빌드 스크립트 내부에 부트 플러그인 사용에 필�
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
-//필요한 플러그인 적용
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -21,15 +21,15 @@ repositories {
 	mavenCentral()
 }
 
-ext['hibernate.version'] = '5.2.10.Final' //LocalDateTime 사용을 위해 hibernate version을 최신으로 명시
+ext['hibernate.version'] = '5.2.10.Final'
 
-dependencies { //프로젝트 내에 사용할 라이브러리들의 의존성 설정, 메인 부트버전인 1.5.4에 맞는 호환성들을 가져오기 위해 디폴트 버전 사용
+dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.thymeleaf.extras:thymeleaf-extras-java8time')
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
-	compile('com.h2database:h2') //원래는 runtime으로 사용하지만 console사용을 위해 compile로 명시
+	compile('com.h2database:h2')
 
 	runtime('org.springframework.boot:spring-boot-devtools')
-	compileOnly('org.projectlombok:lombok') //롬복은 컴파일 타임에만 필요하고 런타임에는 필요하지 않은 의존성이므로 compileOnly
+	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
