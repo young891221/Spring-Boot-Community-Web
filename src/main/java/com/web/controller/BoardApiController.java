@@ -21,12 +21,12 @@ public class BoardApiController {
     @Autowired
     BoardService boardService;
 
-    @PutMapping
+    @PostMapping
     public void save(@RequestBody Board board) {
         boardService.saveAndUpdateBoard(board);
     }
 
-    @PostMapping
+    @PutMapping
     public void update() {
 
     }
