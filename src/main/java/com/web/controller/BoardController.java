@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+    //@See https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-spring-beans-and-dependency-injection.html
+    private final BoardService boardService;
 
-    @Autowired
-    BoardService boardService;
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @GetMapping({"", "/"})
     public String board(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {

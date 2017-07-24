@@ -15,8 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class BoardService {
 
-    @Autowired
-    BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
+
+    public BoardService(BoardRepository boardRepository) {
+        this.boardRepository = boardRepository;
+    }
 
     public Page<Board> findBoardList(Pageable pageable) {
         pageable = new PageRequest(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
