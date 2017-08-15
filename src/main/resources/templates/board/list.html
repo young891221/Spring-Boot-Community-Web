@@ -3,83 +3,99 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Board Form</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-    <div class="container-fluid">
-        <!--header-->
-        <div class="row">
-            <div class="col-md-12" style="background-color:#efefef;border-bottom:#dadada solid 1px;height:50px;padding:7px 15px 7px 15px;">
-                <a href="/board/list" style="text-decoration:none;">
-                    <img th:src="@{/images/spring_boot_gray.png}" class="img-rounded" style="height:100%;margin-right:5px" />
-                    <span style="font-size:22px;vertical-align:middle;color:gray;">SpringBoot Community Web</span>
+    <!--header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand" style="text-decoration:none;">
+                    <img th:src="@{/images/spring_boot_gray.png}" class="img-rounded" style="display:inline-block;height:100%;margin-right:5px" />
+                    <span style="vertical-align:middle;">SpringBoot Community Web</span>
                 </a>
-                <div class="pull-right">
-                    <a href="/signout" class="btn btn-default pull-right">로그아웃</a>
-                </div>
             </div>
-        </div>
-        <!--/header-->
 
-        <!--body-->
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <br/>
-                <h3 style="display:inline-block;">게시글 목록</h3>
-                <div class="pull-right" style="width:100px;margin:10px 0;">
-                    <a href="/board"><button type="button" class="btn btn-primary btn-block">등록</button></a>
-                </div>
-                <br/><br/><br/>
-                <div id="mainHide">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th class="col-md-1">#</th>
-                            <th class="col-md-2">서비스 분류</th>
-                            <th class="col-md-5">제목</th>
-                            <th class="col-md-2">작성 날짜</th>
-                            <th class="col-md-2">수정 날짜</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="board : ${boardList}">
-                                <td th:text="${board.idx}"></td>
-                                <td th:text="${board.boardType.value}"></td>
-                                <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
-                                <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>
-                                <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <br/>
-                <!-- Pagination -->
-                <nav aria-label="Page navigation" style="text-align:center;">
-                    <ul class="pagination" th:with="startNumber=${T(Math).floor(boardList.number/10)}*10+1, endNumber=(${boardList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardList.totalPages}">
-                        <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>
-                        <li th:style="${boardList.first} ? 'display:none'">
-                            <a th:href="@{/board/list(page=${boardList.number})}">&lsaquo;</a>
-                        </li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/signout">LOGOUT</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--/header-->
 
-                        <li th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:class="(${page} == ${boardList.number}+1) ? 'active'">
-                            <a th:href="@{/board/list(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
-                        </li>
-
-                        <li th:style="${boardList.last} ? 'display:none'">
-                            <a th:href="@{/board/list(page=${boardList.number}+2)}">&rsaquo;</a>
-                        </li>
-                        <li><a aria-label="Next" th:href="@{/board/list(page=${boardList.totalPages})}">&raquo;</a></li>
-                    </ul>
-                </nav>
-                <!-- /Pagination -->
-            </div>
+    <!--body-->
+    <div class="container">
+        <div class="page-header">
+            <h1>게시글 목록</h1>
         </div>
-        <!--/body-->
+        <div class="pull-right" style="width:100px;margin:10px 0;">
+            <a href="/board" class="btn btn-primary btn-block">등록</a>
+        </div>
+        <br/><br/><br/>
+        <div id="mainHide">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="col-md-1">#</th>
+                    <th class="col-md-2">서비스 분류</th>
+                    <th class="col-md-5">제목</th>
+                    <th class="col-md-2">작성 날짜</th>
+                    <th class="col-md-2">수정 날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="board : ${boardList}">
+                        <td th:text="${board.idx}"></td>
+                        <td th:text="${board.boardType.value}"></td>
+                        <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
+                        <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>
+                        <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" style="text-align:center;">
+            <ul class="pagination" th:with="startNumber=${T(Math).floor(boardList.number/10)}*10+1, endNumber=(${boardList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardList.totalPages}">
+                <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>
+                <li th:style="${boardList.first} ? 'display:none'">
+                    <a th:href="@{/board/list(page=${boardList.number})}">&lsaquo;</a>
+                </li>
+
+                <li th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:class="(${page} == ${boardList.number}+1) ? 'active'">
+                    <a th:href="@{/board/list(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+                </li>
+
+                <li th:style="${boardList.last} ? 'display:none'">
+                    <a th:href="@{/board/list(page=${boardList.number}+2)}">&rsaquo;</a>
+                </li>
+                <li><a aria-label="Next" th:href="@{/board/list(page=${boardList.totalPages})}">&raquo;</a></li>
+            </ul>
+        </nav>
+        <!-- /Pagination -->
     </div>
-    <!--/container-fluid-->
+    <!--/body-->
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="container">
+            <p>Copyright 2017 young891221. All Right Reserved. Designed by ssosso</p>
+        </div>
+    </footer>
+    <!--/footer-->
 </body>
 </html>
