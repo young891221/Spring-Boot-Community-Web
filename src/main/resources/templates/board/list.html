@@ -6,45 +6,58 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-
-    <div class="row-fluid">
-        <div class="span12" style="border-bottom:#dadada solid 1px; height:50px; padding:9px 15px 0 15px;">
-            <a href="/board/list"><img th:src="@{/images/spring_boot.png}" class="img-rounded" style="height:100%;"/></a>
-            <div class="pull-right">
-                <a href="/signout" class="btn btn-primary pull-right">로그아웃</a>
+    <div class="container-fluid">
+        <!--header-->
+        <div class="row">
+            <div class="col-md-12" style="background-color:#efefef;border-bottom:#dadada solid 1px;height:50px;padding:7px 15px 7px 15px;">
+                <a href="/board/list" style="text-decoration:none;">
+                    <img th:src="@{/images/spring_boot_gray.png}" class="img-rounded" style="height:100%;margin-right:5px" />
+                    <span style="font-size:22px;vertical-align:middle;color:gray;">SpringBoot Community Web</span>
+                </a>
+                <div class="pull-right">
+                    <a href="/signout" class="btn btn-default pull-right">로그아웃</a>
+                </div>
             </div>
         </div>
-    </div>
+        <!--/header-->
 
-    <div class="row-fluid">
-        <div class="span10 offset1">
-            <br/>
-            <div id="mainHide">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>인덱스</th>
-                        <th>서비스 분류</th>
-                        <th>제목</th>
-                        <th>작성 날짜</th>
-                        <th>수정 날짜</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="board : ${boardList}">
-                            <td th:text="${board.idx}"></td>
-                            <td th:text="${board.boardType.value}"></td>
-                            <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
-                            <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>
-                            <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
+        <!--body-->
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <br/>
+                <h3>게시글 목록</h3>
+                <br/>
+                <div id="mainHide">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-md-1">#</th>
+                            <th class="col-md-2">서비스 분류</th>
+                            <th class="col-md-5">제목</th>
+                            <th class="col-md-2">작성 날짜</th>
+                            <th class="col-md-2">수정 날짜</th>
                         </tr>
-                    </tbody>
-                </table>
-
+                        </thead>
+                        <tbody>
+                            <tr th:each="board : ${boardList}">
+                                <td th:text="${board.idx}"></td>
+                                <td th:text="${board.boardType.value}"></td>
+                                <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
+                                <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>
+                                <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <br/>
                 <!-- Pagination -->
-                <div class="pagination pagination-centered">
+                <nav aria-label="Page navigation" style="text-align:center;">
                     <ul class="pagination" th:with="startNumber=${T(Math).floor(boardList.number/10)}*10+1, endNumber=(${boardList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardList.totalPages}">
-                        <li><a href="/board/list?page=1">&laquo;</a></li>
+                        <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>
                         <li th:style="${boardList.first} ? 'display:none'">
                             <a th:href="@{/board/list(page=${boardList.number})}">&lsaquo;</a>
                         </li>
@@ -56,13 +69,14 @@
                         <li th:style="${boardList.last} ? 'display:none'">
                             <a th:href="@{/board/list(page=${boardList.number}+2)}">&rsaquo;</a>
                         </li>
-                        <li><a th:href="@{/board/list(page=${boardList.totalPages})}">&raquo;</a></li>
+                        <li><a aria-label="Next" th:href="@{/board/list(page=${boardList.totalPages})}">&raquo;</a></li>
                     </ul>
-                </div>
+                </nav>
                 <!-- /Pagination -->
             </div>
-
         </div>
+        <!--/body-->
     </div>
+    <!--/container-fluid-->
 </body>
 </html>

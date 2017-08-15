@@ -6,92 +6,105 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-
-    <!--header-->
-    <div class="row-fluid">
-        <div class="span12" style="border-bottom:#dadada solid 1px; height:50px; padding:9px 15px 0 15px;">
-            <a href="/board/list"><img th:src="@{/images/spring_boot.png}" class="img-rounded" style="height:100%;" /></a>
-            <div class="pull-right">
-                <a href="/signout" class="btn btn-primary pull-right">로그아웃</a>
+    <div class="container-fluid">
+        <!--header-->
+        <div class="row">
+            <div class="col-md-12" style="background-color:#efefef;border-bottom:#dadada solid 1px;height:50px;padding:7px 15px 7px 15px;">
+                <a href="/board/list" style="text-decoration:none;">
+                    <img th:src="@{/images/spring_boot_gray.png}" class="img-rounded" style="height:100%;margin-right:5px" />
+                    <span style="font-size:22px;vertical-align:middle;color:gray;">SpringBoot Community Web</span>
+                </a>
+                <div class="pull-right">
+                    <a href="/signout" class="btn btn-default pull-right">로그아웃</a>
+                </div>
             </div>
         </div>
-    </div>
-    <!--/header-->
+        <!--/header-->
 
-    <!--body-->
-    <div class="row-fluid">
-        <div class="span8 offset2">
-            <br/>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <div class="pull-right">
-                        <select id="board_type">
-                            <option>--분류--</option>
-                            <option th:value="notice" th:selected="${board?.boardType}">공지사항</option>
-                            <option th:value="free" th:selected="${board?.boardType}">자유게시판</option>
-                        </select>
-                    </div>
-                </tr>
-                </thead>
-            </table>
-
-            <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
-            <table class="table table-striped">
-                <tr>
-                    <th class="active">Title</th>
-                    <td><input id="board_title" type="text" class="span11 form-control" th:value="${board?.title}"/></td>
-                </tr>
-
-                <tr>
-                    <th class="active">Suboard_title</th>
-                    <td><input id="board_sub_title" type="text" class="span11 form-control" th:value="${board?.subTitle}"/></td>
-                </tr>
-
-                <tr>
-                    <th class="active">Content</th>
-                    <td><textarea id="board_content" class="span11 form-control input-sm ckeditor" maxlength="140" rows="7" style="height: 200px;"
-                    th:text="${board?.content}"></textarea><span class="help-block"></span>
-                    </td>
-                </tr>
-            </table>
-
-            <br style="clear: both" />
-            <p class="pull-right">
-                <a href="/board/list" class="btn" type="button">이전으로</a>
-                <button type="button" class="btn btn-info" id="insert">저장</button>
-                <button type="button" class="btn btn-success" id="update">수정</button>
-                <button type="button" class="btn btn-danger" id="delete">삭제</button>
-            </p>
+        <!--body-->
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <br/>
+                <h3>게시글 등록</h3>
+                <br/>
+                <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th style="padding:15px 0 0 15px">게시판 선택</th>
+                            <td>
+                                <div class="pull-left">
+                                    <select class="form-control" id="board_type">
+                                        <option>--분류--</option>
+                                        <option th:value="notice" th:selected="${board?.boardType}">공지사항</option>
+                                        <option th:value="free" th:selected="${board?.boardType}">자유게시판</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="padding:15px 0 0 15px;">제목</th>
+                            <td><input id="board_title" type="text" class="col-md-1 form-control" th:value="${board?.title}"/></td>
+                        </tr>
+                        <tr>
+                            <th style="padding:15px 0 0 15px;">부제목</th>
+                            <td><input id="board_sub_title" type="text" class="col-md-1 form-control" th:value="${board?.subTitle}"/></td>
+                        </tr>
+                        <tr>
+                            <th style="padding:15px 0 0 15px;">내용</th>
+                            <td><textarea id="board_content" class="col-md-1 form-control" maxlength="140" rows="7" style="height: 200px;"
+                            th:text="${board?.content}"></textarea><span class="help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="pull-left">
+                    <a href="/board/list"><button type="button" class="btn btn-default">이전으로</button></a>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" id="insert">저장</button>
+                    <button type="button" class="btn btn-info" id="update">수정</button>
+                    <button type="button" class="btn btn-danger" id="delete">삭제</button>
+                </div>
+            </div>
+        </div>
+        <!--/body-->
     </div>
-    <!--/body-->
+    <!--/container-fluid-->
 
-<script th:src="@{/js/jquery.min.js}"></script>
-<script>
-    $('#postBtn').click(function () {
-        var jsonData = JSON.stringify({
-            idx: "",
-            title: "",
-            subTitle: ""
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script>
+        $('#postBtn').click(function () {
+            var jsonData = JSON.stringify({
+                idx: "",
+                title: "",
+                subTitle: ""
+            });
+            $.ajax({
+                       url: "/api/comment/post",
+                       type: "POST",
+                           data: jsonData,
+                               headers: {
+                               "Accept": "application/json",
+                                   "Content-Type": "application/json"
+                           },
+                           dataType: "json",
+                               success: function (data) {
+
+                       },
+                       error: function () {
+
+                       }
+                   });
         });
-        $.ajax({
-                   url: "/api/comment/post",
-                   type: "POST",
-	                   data: jsonData,
-		                   headers: {
-		                   "Accept": "application/json",
-			                   "Content-Type": "application/json"
-	                   },
-	                   dataType: "json",
-		                   success: function (data) {
-
-                   },
-                   error: function () {
-
-                   }
-               });
-    });
-</script>
+    </script>
 </body>
 </html>
