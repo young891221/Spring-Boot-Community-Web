@@ -3,82 +3,96 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Board Form</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-    <div class="container-fluid">
-        <!--header-->
-        <div class="row">
-            <div class="col-md-12" style="background-color:#efefef;border-bottom:#dadada solid 1px;height:50px;padding:7px 15px 7px 15px;">
-                <a href="/board/list" style="text-decoration:none;">
-                    <img th:src="@{/images/spring_boot_gray.png}" class="img-rounded" style="height:100%;margin-right:5px" />
-                    <span style="font-size:22px;vertical-align:middle;color:gray;">SpringBoot Community Web</span>
+    <!--header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand" style="text-decoration:none;">
+                    <img th:src="@{/images/spring_boot_gray.png}" class="img-rounded" style="display:inline-block;height:100%;margin-right:5px" />
+                    <span style="vertical-align:middle;">SpringBoot Community Web</span>
                 </a>
-                <div class="pull-right">
-                    <a href="/signout" class="btn btn-default pull-right">로그아웃</a>
-                </div>
             </div>
-        </div>
-        <!--/header-->
 
-        <!--body-->
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <br/>
-                <h3>게시글 등록</h3>
-                <br/>
-                <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th style="padding:15px 0 0 15px">게시판 선택</th>
-                            <td>
-                                <div class="pull-left">
-                                    <select class="form-control" id="board_type">
-                                        <option>--분류--</option>
-                                        <option th:value="notice" th:selected="${board?.boardType}">공지사항</option>
-                                        <option th:value="free" th:selected="${board?.boardType}">자유게시판</option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="padding:15px 0 0 15px;">제목</th>
-                            <td><input id="board_title" type="text" class="col-md-1 form-control" th:value="${board?.title}"/></td>
-                        </tr>
-                        <tr>
-                            <th style="padding:15px 0 0 15px;">부제목</th>
-                            <td><input id="board_sub_title" type="text" class="col-md-1 form-control" th:value="${board?.subTitle}"/></td>
-                        </tr>
-                        <tr>
-                            <th style="padding:15px 0 0 15px;">내용</th>
-                            <td><textarea id="board_content" class="col-md-1 form-control" maxlength="140" rows="7" style="height: 200px;"
-                            th:text="${board?.content}"></textarea><span class="help-block"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/signout">LOGOUT</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--/header-->
+
+    <!--body-->
+    <div class="container">
+        <div class="page-header">
+            <h1>게시글 등록</h1>
         </div>
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="pull-left">
-                    <a href="/board/list"><button type="button" class="btn btn-default">이전으로</button></a>
-                </div>
-                <div class="pull-right">
-                    <button type="button" class="btn btn-primary" id="insert">저장</button>
-                    <button type="button" class="btn btn-info" id="update">수정</button>
-                    <button type="button" class="btn btn-danger" id="delete">삭제</button>
-                </div>
-            </div>
+        <br/>
+        <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
+        <table class="table">
+            <tr>
+                <th style="padding:13px 0 0 15px">게시판 선택</th>
+                <td>
+                    <div class="pull-left">
+                        <select class="form-control input-sm" id="board_type">
+                            <option>--분류--</option>
+                            <option th:value="notice" th:selected="${board?.boardType}">공지사항</option>
+                            <option th:value="free" th:selected="${board?.boardType}">자유게시판</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th style="padding:13px 0 0 15px;">제목</th>
+                <td><input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/></td>
+            </tr>
+            <tr>
+                <th style="padding:13px 0 0 15px;">부제목</th>
+                <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>
+            </tr>
+            <tr>
+                <th style="padding:13px 0 0 15px;">내용</th>
+                <td><textarea id="board_content" class="col-md-1 form-control input-sm" maxlength="140" rows="7" style="height: 200px;"
+                th:text="${board?.content}"></textarea><span class="help-block"></span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="pull-left">
+            <a href="/board/list" class="btn btn-default">목록으로</a>
         </div>
-        <!--/body-->
+        <div class="pull-right">
+            <button type="button" class="btn btn-primary" id="insert">저장</button>
+            <button type="button" class="btn btn-info" id="update">수정</button>
+            <button type="button" class="btn btn-danger" id="delete">삭제</button>
+        </div>
     </div>
-    <!--/container-fluid-->
+    <!--/body-->
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="container">
+            <p>Copyright 2017 young891221. All Right Reserved. Designed by ssosso</p>
+        </div>
+    </footer>
+    <!--/footer-->
 
     <script th:src="@{/js/jquery.min.js}"></script>
     <script>

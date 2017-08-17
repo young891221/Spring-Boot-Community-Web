@@ -3,8 +3,61 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-    <h1>Hello Boot Community</h1>
+    <!--header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand" style="text-decoration:none;">
+                    <img th:src="@{/images/spring_boot_gray.png}" class="img-rounded" style="display:inline-block;height:100%;margin-right:5px" />
+                    <span style="vertical-align:middle;">SpringBoot Community Web</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/signout">LOGOUT</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--/header-->
+
+    <!--body-->
+    <div class="container">
+        <br/><br/>
+        <div class="jumbotron">
+            <h1>안녕하세요, 환영합니다.</h1>
+            <p>
+                함께 SpringBoot를 공부할 준비되셨나요? 준비되셨다면 '시작하기'를 눌러주세요!
+            </p>
+            <br/>
+            <p align="right">
+                <a class="btn btn-primary btn-lg" href="/board/list">시작하기</a>
+            </p>
+        </div>
+    </div>
+    <!--/body-->
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="container">
+            <p>Copyright 2017 young891221. All Right Reserved. Designed by ssosso</p>
+        </div>
+    </footer>
+    <!--/footer-->
 </body>
 </html>
