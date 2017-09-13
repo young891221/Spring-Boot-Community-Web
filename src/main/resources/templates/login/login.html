@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>로그인</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+    <form th:action="@{login}" th:method="POST">
+        <label>아이디</label><input name="username" type="text"/><br/>
+        <label>패스워드</label><input name="password" type="text"/><br/>
+        <button type="submit" class="btn btn-primary">로그인</button>
+    </form>
+</body>
+</html>

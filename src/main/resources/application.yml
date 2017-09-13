@@ -1,7 +1,3 @@
-devtools:
-  livereload:
-    enabled: true
-
 datasource:
   url: jdbc:h2:mem:testdb
 
@@ -10,3 +6,15 @@ spring:
     console:
       enabled: true
       path: /console
+  devtools:
+    livereload:
+      enabled: true
+
+security:
+  enable-csrf: false
+  headers:
+    frame: false
+  basic:
+    enabled: false
+
+
