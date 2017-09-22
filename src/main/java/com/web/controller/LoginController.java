@@ -16,7 +16,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
-        return "/login/login";
+        return "login";
     }
 
     @GetMapping(value = "/{facebook|google|kakao}/complete")
