@@ -3,14 +3,28 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>로그인</title>
-    <link rel="stylesheet" th:href="@{/css/base.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-    <form th:action="@{login}" th:method="POST">
-        <label>아이디</label><input name="username" type="text"/><br/>
-        <label>패스워드</label><input name="password" type="text"/><br/>
-        <button type="submit" class="btn btn-primary">로그인</button>
-    </form>
+
+<div style="text-align: center;">
+    <br/>
+    <span style="font-size: 15px; font-weight: bold; color: #1f326a">로그인</span><br/><br/>
+    <a href="javascript:;" class="btn_social" data-social="facebook"><img th:src="@{/images/facebook.png}" width="40px" height="40px"/></a>
+    <a href="javascript:;" class="btn_social" data-social="google"><img th:src="@{/images/google.png}" width="40px" height="40px"/></a>
+    <a href="javascript:;" class="btn_social" data-social="kakao"><img th:src="@{/images/kakao.png}" width="40px" height="40px"/></a>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    $('.btn_social').click(function () {
+        var socialType = $(this).data('social');
+        window.open('/login/'+socialType, '', 'scrollbars=yes, resizable=yes, status=yes, location=yes, width=500, height=350, left=0, top=0');
+        window['onSuccess'] = function() {
+            location.href="/board/list"
+            window['onSuccess'] = null;
+        }
+    });
+</script>
+
 </body>
 </html>
