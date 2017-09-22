@@ -18,11 +18,7 @@
 <script>
     $('.btn_social').click(function () {
         var socialType = $(this).data('social');
-        window.open('/login/'+socialType, '', 'scrollbars=yes, resizable=yes, status=yes, location=yes, width=500, height=350, left=0, top=0');
-        window['onSuccess'] = function() {
-            location.href="/board/list"
-            window['onSuccess'] = null;
-        }
+        location.href="/login/"+socialType;
     });
 </script>
 
