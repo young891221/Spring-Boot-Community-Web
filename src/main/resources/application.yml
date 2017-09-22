@@ -12,8 +12,8 @@ spring:
 
 facebook :
   client :
-    clientId :
-    clientSecret:
+    clientId : 465358593799840
+    clientSecret: a37286e3dae00dcdce628f40dfe363f5
     accessTokenUri: https://graph.facebook.com/oauth/access_token
     userAuthorizationUri: https://www.facebook.com/dialog/oauth?display=popup
     tokenName: oauth_token
@@ -25,8 +25,8 @@ facebook :
 
 google :
   client :
-    clientId :
-    clientSecret:
+    clientId : 881218558153-ndr868i68rlofoo4l2gb488ksabi5q23.apps.googleusercontent.com
+    clientSecret: kq6zIo0myJotHK5_0irhtYnW
     accessTokenUri: https://accounts.google.com/o/oauth2/token
     userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
     scope: email, profile
@@ -35,7 +35,7 @@ google :
 
 kakao :
   client :
-    clientId :
+    clientId : 1b8ff676ae01724ed77437f98d399543
     accessTokenUri: https://kauth.kakao.com/oauth/token
     userAuthorizationUri: https://kauth.kakao.com/oauth/authorize
   resource:
