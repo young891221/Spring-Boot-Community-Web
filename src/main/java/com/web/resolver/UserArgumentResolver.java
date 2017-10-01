@@ -33,8 +33,11 @@ import static com.web.domain.enums.SocialType.KAKAO;
 @Component
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
-    @Autowired
     private UserRepository userRepository;
+
+    public UserArgumentResolver(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
