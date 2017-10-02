@@ -95,8 +95,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private void setRoleIfNotSame(User user, OAuth2Authentication authentication, Map<String, String> map) {
-        if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getValue()))) {
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(map, "N/A", AuthorityUtils.createAuthorityList(user.getSocialType().getValue())));
+        if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(map, "N/A", AuthorityUtils.createAuthorityList(user.getSocialType().getRoleType())));
         }
     }
 }
