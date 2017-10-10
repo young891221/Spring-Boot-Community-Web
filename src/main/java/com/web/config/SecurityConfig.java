@@ -87,8 +87,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
         filters.add(oauth2Filter(facebook(), "/login/facebook", FACEBOOK));
-        filters.add(oauth2Filter(google(), "/login/google", SocialType.GOOGLE));
-        filters.add(oauth2Filter(kakao(), "/login/kakao", SocialType.KAKAO));
+        filters.add(oauth2Filter(google(), "/login/google", GOOGLE));
+        filters.add(oauth2Filter(kakao(), "/login/kakao", KAKAO));
         filter.setFilters(filters);
         return filter;
     }
