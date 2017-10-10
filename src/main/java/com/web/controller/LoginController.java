@@ -20,8 +20,7 @@ public class LoginController {
     }
 
     @GetMapping(value = "/{facebook|google|kakao}/complete")
-    public String facebookComplete(@SocialUser User user, HttpSession session) {
-        session.setAttribute("user", user);
+    public String loginComplete(@SocialUser User user) {
         return "redirect:/board/list";
     }
 }

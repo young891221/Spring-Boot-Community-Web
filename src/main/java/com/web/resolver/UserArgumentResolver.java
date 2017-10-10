@@ -48,10 +48,10 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
         User user = (User) session.getAttribute("user");
-        return getUser(user);
+        return getUser(user, session);
     }
 
-    private User getUser(User user) {
+    private User getUser(User user, HttpSession session) {
         if(user == null) {
             try {
                 OAuth2Authentication authentication = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
@@ -60,6 +60,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 user = userRepository.findByEmail(convertUser.getEmail());
                 if (user == null) { user = userRepository.save(convertUser); }
                 setRoleIfNotSame(user, authentication, map);
+                session.setAttribute("user", user);
             } catch (ClassCastException e) {
                 return user;
             }
