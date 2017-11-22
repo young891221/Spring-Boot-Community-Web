@@ -63,26 +63,27 @@
 
     <script th:src="@{/js/jquery.min.js}"></script>
     <script>
-        $('#postBtn').click(function () {
+        $('#insert').click(function () {
             var jsonData = JSON.stringify({
-                idx: "",
-                title: "",
-                subTitle: ""
+                title: "test",
+                subTitle: "test",
+                content: "test",
+                boardType: 'free'
             });
             $.ajax({
-                       url: "/api/comment/post",
+                       url: "http://localhost:8081/api/boards",
                        type: "POST",
                        data: jsonData,
-                           headers: {
+                       headers: {
                            "Accept": "application/json",
                            "Content-Type": "application/json"
                        },
                        dataType: "json",
                            success: function (data) {
-
+                               console.log(data);
                        },
-                       error: function () {
-
+                       error: function (data) {
+                           console.log(data);
                        }
                    });
         });
