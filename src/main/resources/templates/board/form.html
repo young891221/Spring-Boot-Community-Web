@@ -15,6 +15,7 @@
         </div>
         <br/>
         <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
+        <input id="board_create_date" type="hidden" th:value="${board?.createdDate}"/>
         <table class="table">
             <tr>
                 <th style="padding:13px 0 0 15px">게시판 선택</th>
@@ -27,6 +28,10 @@
                         </select>
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <th style="padding:13px 0 0 15px;">생성날짜</th>
+                <td><input type="text" class="col-md-1 form-control input-sm" readonly="readonly" th:value="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"/></td>
             </tr>
             <tr>
                 <th style="padding:13px 0 0 15px;">제목</th>
@@ -90,7 +95,8 @@
                 title: $('#board_title').val(),
                 subTitle: $('#board_sub_title').val(),
                 content: $('#board_content').val(),
-                boardType: $('#board_type option:selected').val()
+                boardType: $('#board_type option:selected').val(),
+                createdDate: $('#board_create_date').val()
             });
             $.ajax({
                        url: "http://localhost:8081/api/boards/" + $('#board_idx').val(),
