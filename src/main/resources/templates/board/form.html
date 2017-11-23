@@ -9,7 +9,6 @@
 <body>
     <div th:replace="layout/header::header"></div>
 
-    <!--body-->
     <div class="container">
         <div class="page-header">
             <h1>게시글 등록</h1>
@@ -52,38 +51,72 @@
             <a href="/board/list" class="btn btn-default">목록으로</a>
         </div>
         <div class="pull-right">
-            <button type="button" class="btn btn-primary" id="insert">저장</button>
-            <button type="button" class="btn btn-info" id="update">수정</button>
-            <button type="button" class="btn btn-danger" id="delete">삭제</button>
+            <button th:if="!${board?.idx}" type="button" class="btn btn-primary" id="insert">저장</button>
+            <button th:if="${board?.idx}" type="button" class="btn btn-info" id="update">수정</button>
+            <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
         </div>
     </div>
-    <!--/body-->
 
     <div th:replace="layout/footer::footer"></div>
 
     <script th:src="@{/js/jquery.min.js}"></script>
-    <script>
+    <script th:if="!${board?.idx}">
         $('#insert').click(function () {
             var jsonData = JSON.stringify({
-                title: "test",
-                subTitle: "test",
-                content: "test",
-                boardType: 'free'
+                title: $('#board_title').val(),
+                subTitle: $('#board_sub_title').val(),
+                content: $('#board_content').val(),
+                boardType: $('#board_type option:selected').val()
             });
             $.ajax({
                        url: "http://localhost:8081/api/boards",
                        type: "POST",
                        data: jsonData,
-                       headers: {
-                           "Accept": "application/json",
-                           "Content-Type": "application/json"
-                       },
+                       contentType: "application/json",
                        dataType: "json",
-                           success: function (data) {
-                               console.log(data);
+                           success: function () {
+                               alert('저장 성공!');
+                               location.href = '/board/list';
                        },
-                       error: function (data) {
-                           console.log(data);
+                       error: function () {
+                           alert('저장 실패!');
+                       }
+                   });
+        });
+    </script>
+    <script th:if="${board?.idx}">
+        $('#update').click(function () {
+            var jsonData = JSON.stringify({
+                title: $('#board_title').val(),
+                subTitle: $('#board_sub_title').val(),
+                content: $('#board_content').val(),
+                boardType: $('#board_type option:selected').val()
+            });
+            $.ajax({
+                       url: "http://localhost:8081/api/boards/" + $('#board_idx').val(),
+                       type: "PUT",
+                       data: jsonData,
+                       contentType: "application/json",
+                       dataType: "json",
+                       success: function () {
+                           alert('수정 성공!');
+                           location.href = '/board/list';
+                       },
+                       error: function () {
+                           alert('수정 실패!');
+                       }
+                   });
+        });
+        $('#delete').click(function () {
+            $.ajax({
+                       url: "http://localhost:8081/api/boards/" + $('#board_idx').val(),
+                       type: "DELETE",
+                       success: function () {
+                           alert('삭제 성공!');
+                           location.href = '/board/list';
+                       },
+                       error: function () {
+                           alert('삭제 실패!');
                        }
                    });
         });

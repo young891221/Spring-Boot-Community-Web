@@ -9,7 +9,6 @@
 <body>
     <div th:replace="layout/header::header"></div>
 
-    <!--body-->
     <div class="container">
         <div class="page-header">
             <h1>게시글 목록</h1>
@@ -34,8 +33,8 @@
                         <td th:text="${board.idx}"></td>
                         <td th:text="${board.boardType.value}"></td>
                         <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
-                        <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>
-                        <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
+                        <td th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
+                        <td th:text="${board.createdDate} ? ${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
                     </tr>
                 </tbody>
             </table>
@@ -61,7 +60,6 @@
         </nav>
         <!-- /Pagination -->
     </div>
-    <!--/body-->
 
     <div th:replace="layout/footer::footer"></div>
 </body>
