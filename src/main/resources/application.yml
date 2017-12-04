@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://
-    username:
-    password:
+    url: jdbc:mysql://172.16.135.15:3306/autoconfiguration
+    username: mns
+    password: dltmxmdlsxjspt
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
