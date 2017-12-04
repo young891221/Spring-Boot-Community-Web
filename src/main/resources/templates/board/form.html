@@ -23,8 +23,8 @@
                     <div class="pull-left">
                         <select class="form-control input-sm" id="board_type">
                             <option>--분류--</option>
-                            <option th:value="${board?.boardType}" th:selected="${board?.boardType.name() == 'notice'}">공지사항</option>
-                            <option th:value="${board?.boardType}" th:selected="${board?.boardType.name() == 'free'}">자유게시판</option>
+                            <option th:value="${board?.boardType}" th:selected="${board?.boardType?.name() == 'notice'}">공지사항</option>
+                            <option th:value="${board?.boardType}" th:selected="${board?.boardType?.name() == 'free'}">자유게시판</option>
                         </select>
                     </div>
                 </td>
