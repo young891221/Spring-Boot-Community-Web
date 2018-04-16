@@ -22,12 +22,12 @@ import java.util.stream.IntStream;
 @SpringBootApplication
 public class BootWebApplication extends WebMvcConfigurerAdapter {
 
+	@Autowired
+	private UserArgumentResolver userArgumentResolver;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BootWebApplication.class, args);
 	}
-
-	@Autowired
-	private UserArgumentResolver userArgumentResolver;
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
@@ -35,7 +35,7 @@ public class BootWebApplication extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public CommandLineRunner runner(UserRepository userRepository, BoardRepository boardRepository) throws Exception {
+	public CommandLineRunner runner(UserRepository userRepository, BoardRepository boardRepository) {
 		return (args) -> {
 			User user = userRepository.save(User.builder()
 					.name("havi")

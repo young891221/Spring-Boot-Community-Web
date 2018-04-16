@@ -6,8 +6,6 @@ import com.web.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * Created by KimYJ on 2017-09-13.
  */

@@ -41,8 +41,8 @@ import static com.web.domain.enums.SocialType.KAKAO;
 @EnableOAuth2Client
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Qualifier("oauth2ClientContext")
     @Autowired
+    @Qualifier("oauth2ClientContext")
     private OAuth2ClientContext oAuth2ClientContext;
 
     @Override
