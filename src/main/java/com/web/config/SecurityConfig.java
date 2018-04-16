@@ -42,7 +42,6 @@ import static com.web.domain.enums.SocialType.KAKAO;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("oauth2ClientContext")
     private OAuth2ClientContext oAuth2ClientContext;
 
     @Override
@@ -96,12 +95,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Filter oauth2Filter(ClientResources client, String path, SocialType socialType) {
         OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
         OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oAuth2ClientContext);
-        StringBuilder redirectUrl = new StringBuilder("/");
-        redirectUrl.append(socialType.getValue()).append("/complete");
 
         filter.setRestTemplate(template);
         filter.setTokenServices(new UserTokenService(client, socialType));
-        filter.setAuthenticationSuccessHandler((request, response, authentication) -> response.sendRedirect(redirectUrl.toString()));
+        filter.setAuthenticationSuccessHandler((request, response, authentication) -> response.sendRedirect("/" + socialType.getValue() + "/complete"));
         filter.setAuthenticationFailureHandler((request, response, exception) -> response.sendRedirect("/error"));
         return filter;
     }
