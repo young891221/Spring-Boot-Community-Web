@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.12.RELEASE'
+		springBootVersion = '2.0.1.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -21,13 +22,13 @@ repositories {
 	mavenCentral()
 }
 
-ext['hibernate.version'] = '5.2.10.Final'
-
 dependencies {
-	compile('org.springframework.security.oauth:spring-security-oauth2')
+	compile('org.springframework.security:spring-security-oauth2-client')
+	compile('org.springframework.security:spring-security-oauth2-jose')
+    compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.thymeleaf.extras:thymeleaf-extras-java8time')
 	compile('com.h2database:h2')
 
 	runtime('mysql:mysql-connector-java')

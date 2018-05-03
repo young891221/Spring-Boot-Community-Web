@@ -3,7 +3,6 @@ package com.web.service;
 import com.web.domain.Board;
 import com.web.repository.BoardRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,10 +26,7 @@ public class BoardService {
     }
 
     public Board findBoardByIdx(Long idx) {
-        return boardRepository.findOne(idx);
+        return boardRepository.getOne(idx);
     }
 
-    public Board saveAndUpdateBoard(Board board) {
-        return boardRepository.save(board);
-    }
 }

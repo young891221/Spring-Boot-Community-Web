@@ -5,15 +5,23 @@ import com.web.domain.User;
 import com.web.domain.enums.SocialType;
 import com.web.repository.UserRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -26,18 +34,18 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import lombok.AllArgsConstructor;
+
 import static com.web.domain.enums.SocialType.FACEBOOK;
 import static com.web.domain.enums.SocialType.GOOGLE;
 import static com.web.domain.enums.SocialType.KAKAO;
 
 @Component
+@AllArgsConstructor
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     private UserRepository userRepository;
-
-    public UserArgumentResolver(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private OAuth2AuthorizedClientService authorizedClientService;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -45,7 +53,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
         User user = (User) session.getAttribute("user");
         return getUser(user, session);
@@ -54,9 +62,25 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     private User getUser(User user, HttpSession session) {
         if(user == null) {
             try {
-                OAuth2Authentication authentication = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
-                Map<String, String> map = (HashMap<String, String>) authentication.getUserAuthentication().getDetails();
-                User convertUser = convertUser(String.valueOf(authentication.getAuthorities().toArray()[0]), map);
+                OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+                OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
+
+                String userInfoEndpointUri = client.getClientRegistration()
+                        .getProviderDetails()
+                        .getUserInfoEndpoint()
+                        .getUri();
+
+                Map<String, String> map = new HashMap<>();
+
+                if (!StringUtils.isEmpty(userInfoEndpointUri)) {
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken().getTokenValue());
+
+                    ResponseEntity<Map> response = new RestTemplate().exchange(userInfoEndpointUri, HttpMethod.GET, new HttpEntity<>("", headers), Map.class);
+                    map = response.getBody();
+                }
+
+                User convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
                 user = userRepository.findByEmail(convertUser.getEmail());
                 if (user == null) { user = userRepository.save(convertUser); }
                 setRoleIfNotSame(user, authentication, map);
@@ -96,7 +120,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 .build();
     }
 
-    private void setRoleIfNotSame(User user, OAuth2Authentication authentication, Map<String, String> map) {
+    private void setRoleIfNotSame(User user, Authentication authentication, Map<String, String> map) {
         if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(map, "N/A", AuthorityUtils.createAuthorityList(user.getSocialType().getRoleType())));
         }

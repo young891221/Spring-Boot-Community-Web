@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://
+    url:
     username:
     password:
     driver-class-name: com.mysql.jdbc.Driver
@@ -14,34 +14,19 @@ spring:
   devtools:
     livereload:
       enabled: true
-
-facebook :
-  client :
-    clientId :
-    clientSecret:
-    accessTokenUri: https://graph.facebook.com/oauth/access_token
-    userAuthorizationUri: https://www.facebook.com/dialog/oauth?display=popup
-    tokenName: oauth_token
-    authenticationScheme: query
-    clientAuthenticationScheme: form
-    scope: email
-  resource:
-    userInfoUri: https://graph.facebook.com/me?fields=id,name,email,link
-
-google :
-  client :
-    clientId :
-    clientSecret:
-    accessTokenUri: https://accounts.google.com/o/oauth2/token
-    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
-    scope: email, profile
-  resource:
-    userInfoUri: https://www.googleapis.com/oauth2/v2/userinfo
-
-kakao :
-  client :
-    clientId :
-    accessTokenUri: https://kauth.kakao.com/oauth/token
-    userAuthorizationUri: https://kauth.kakao.com/oauth/authorize
-  resource:
-    userInfoUri: https://kapi.kakao.com/v1/user/me
+  thymeleaf:
+      cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
+          facebook:
+            client-id:
+            client-secret:
+custom:
+  oauth2:
+    kakao:
+      client-id:
