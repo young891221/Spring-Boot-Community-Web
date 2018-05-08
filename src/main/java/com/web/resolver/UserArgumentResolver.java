@@ -5,13 +5,13 @@ import com.web.domain.User;
 import com.web.domain.enums.SocialType;
 import com.web.repository.UserRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,17 +34,17 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import lombok.AllArgsConstructor;
-
 import static com.web.domain.enums.SocialType.FACEBOOK;
 import static com.web.domain.enums.SocialType.GOOGLE;
 import static com.web.domain.enums.SocialType.KAKAO;
 
 @Component
-@AllArgsConstructor
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
 
     @Override
@@ -120,7 +120,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 .build();
     }
 
-    private void setRoleIfNotSame(User user, Authentication authentication, Map<String, String> map) {
+    private void setRoleIfNotSame(User user, OAuth2AuthenticationToken authentication, Map<String, String> map) {
         if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(map, "N/A", AuthorityUtils.createAuthorityList(user.getSocialType().getRoleType())));
         }
