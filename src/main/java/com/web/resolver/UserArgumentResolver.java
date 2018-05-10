@@ -63,22 +63,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         if(user == null) {
             try {
                 OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-                OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
-
-                String userInfoEndpointUri = client.getClientRegistration()
-                        .getProviderDetails()
-                        .getUserInfoEndpoint()
-                        .getUri();
-
-                Map<String, String> map = new HashMap<>();
-
-                if (!StringUtils.isEmpty(userInfoEndpointUri)) {
-                    HttpHeaders headers = new HttpHeaders();
-                    headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken().getTokenValue());
-
-                    ResponseEntity<Map> response = new RestTemplate().exchange(userInfoEndpointUri, HttpMethod.GET, new HttpEntity<>("", headers), Map.class);
-                    map = response.getBody();
-                }
+                Map<String, String> map = getUserInfo(authentication);
 
                 User convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
                 user = userRepository.findByEmail(convertUser.getEmail());
@@ -90,6 +75,26 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
             }
         }
         return user;
+    }
+
+    private Map<String, String> getUserInfo(OAuth2AuthenticationToken authentication) {
+        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
+
+        String userInfoEndpointUri = client.getClientRegistration()
+                .getProviderDetails()
+                .getUserInfoEndpoint()
+                .getUri();
+
+        Map<String, String> map = new HashMap<>();
+
+        if (!StringUtils.isEmpty(userInfoEndpointUri)) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken().getTokenValue());
+
+            ResponseEntity<Map> response = new RestTemplate().exchange(userInfoEndpointUri, HttpMethod.GET, new HttpEntity<>("", headers), Map.class);
+            map = response.getBody();
+        }
+        return map;
     }
 
     private User convertUser(String authority, Map<String, String> map) {
