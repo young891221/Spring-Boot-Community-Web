@@ -5,13 +5,7 @@ import com.web.domain.enums.SocialType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -28,7 +22,7 @@ public class User implements Serializable {
 
     @Id
     @Column
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
     @Column
