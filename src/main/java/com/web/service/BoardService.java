@@ -26,7 +26,7 @@ public class BoardService {
     }
 
     public Board findBoardByIdx(Long idx) {
-        return boardRepository.getOne(idx);
+        return boardRepository.findById(idx).orElse(new Board());
     }
 
 }
