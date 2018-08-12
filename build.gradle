@@ -28,8 +28,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.thymeleaf.extras:thymeleaf-extras-java8time')
-	compile('com.h2database:h2')
 
+	runtime('com.h2database:h2')
 	runtime('mysql:mysql-connector-java')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	compileOnly('org.projectlombok:lombok')

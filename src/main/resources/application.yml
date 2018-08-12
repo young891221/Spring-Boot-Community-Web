@@ -9,7 +9,7 @@ spring:
       ddl-auto: create
   h2:
     console:
-      enabled: false
+      enabled: true
       path: /console
   devtools:
     livereload:
