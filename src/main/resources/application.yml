@@ -1,9 +1,9 @@
 spring:
-  datasource:
-    url: jdbc:mysql://
-    username:
-    password:
-    driver-class-name: com.mysql.jdbc.Driver
+#  datasource:
+#    url: jdbc:mysql://
+#    username:
+#    password:
+#    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: create
