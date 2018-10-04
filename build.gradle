@@ -22,6 +22,8 @@ repositories {
 	mavenCentral()
 }
 
+ext['json-path.version'] = '2.2.1'
+
 dependencies {
 	compile('org.springframework.security:spring-security-oauth2-client')
 	compile('org.springframework.security:spring-security-oauth2-jose')
